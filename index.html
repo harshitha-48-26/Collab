@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>6G Technology Dashboard</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    header {
+      background-color: #2b2d42;
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+    }
+
+    .toggle-btn {
+      background-color: #8d99ae;
+      border: none;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .dashboard {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background-color: #fff;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .card h3 {
+      margin-bottom: 1rem;
+    }
+
+    canvas {
+      max-width: 100%;
+    }
+
+    /* Dark Mode */
+    body.dark {
+      background-color: #1a1a1a;
+      color: #f5f5f5;
+    }
+
+    body.dark header {
+      background-color: #111;
+    }
+
+    body.dark .card {
+      background-color: #2b2b2b;
+      color: #f5f5f5;
+    }
+
+    body.dark .toggle-btn {
+      background-color: #444;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #2b2d42;
+      color: white;
+      position: relative;
+      bottom: 0;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>6G Technology Dashboard</h1>
+    <button class="toggle-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+  </header>
+
+  <section class="dashboard">
+    <div class="card">
+      <h3>6G Overview</h3>
+      <p>6G is the sixth generation of wireless technology, promising data speeds of 1Tbps+, ultra-low latency, and advanced AI integration for seamless connectivity.</p>
+    </div>
+
+    <div class="card">
+      <h3>Adoption Progress</h3>
+      <canvas id="progressChart"></canvas>
+    </div>
+
+    <div class="card">
+      <h3>Use Cases</h3>
+      <ul>
+        <li>Holographic Communication</li>
+        <li>Smart Cities</li>
+        <li>Autonomous Transport</li>
+        <li>IoT Everywhere</li>
+        <li>AI-Native Networks</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Data Rate Comparison</h3>
+      <canvas id="speedChart"></canvas>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 6G Innovation Lab
+  </footer>
+
+  <script>
+    // Toggle dark mode
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+    }
+
+    // Progress chart
+    const ctx1 = document.getElementById('progressChart').getContext('2d');
+    new Chart(ctx1, {
+      type: 'doughnut',
+      data: {
+        labels: ['Research', 'Prototyping', 'Testing', 'Deployment'],
+        datasets: [{
+          label: 'Progress',
+          data: [40, 30, 20, 10],
+          backgroundColor: ['#4e79a7', '#f28e2c', '#e15759', '#76b7b2']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }
+    });
+
+    // Speed comparison chart
+    const ctx2 = document.getElementById('speedChart').getContext('2d');
+    new Chart(ctx2, {
+      type: 'bar',
+      data: {
+        labels: ['3G', '4G', '5G', '6G'],
+        datasets: [{
+          label: 'Speed (Gbps)',
+          data: [0.03, 0.1, 10, 1000],
+          backgroundColor: '#59a14f'
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            type: 'logarithmic',
+            title: {
+              display: true,
+              text: 'Speed (log scale)'
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
